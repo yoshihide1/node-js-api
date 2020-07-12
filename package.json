@@ -1,7 +1,6 @@
 {
   "name": "nodejs001-sample-mysql",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,6 +13,18 @@
     "moment": "^2.27.0",
     "mongodb": "^3.5.9",
     "mongoose": "^5.9.22",
-    "mysql": "^2.18.1"
-  }
+    "mysql": "^2.18.1",
+    "node-cron": "^2.0.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoshihide1/node-js-sample.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/yoshihide1/node-js-sample/issues"
+  },
+  "homepage": "https://github.com/yoshihide1/node-js-sample#readme",
+  "description": ""
 }

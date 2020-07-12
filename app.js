@@ -2,7 +2,6 @@ const http = require('http')
 const https = require('https');
 const express = require('express')
 const app = express()
-const mysql = require('mysql')
 const connection = require('./mysqlConnection')
 const cron = require('node-cron')
 
@@ -74,6 +73,14 @@ cron.schedule('57 23 * * *', () => {
 //       //   console.log("完了")
 //       // })
 
+//API部分
+app.get('/api/v1/list', (req, res) => {
+  connection.query('select prefecture, pcr, cases from corona join prefectures where corona.pref_id = prefectures.pref_id', ((error, results, fields) => {
+    if (error) throw error
+    res.json(results)
+  }))
+
+})
 
 
 app.listen(3000, (() => {

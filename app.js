@@ -13,45 +13,45 @@ const cron = require('node-cron')
 
 //APIリクエスト定時実行
 
-  let data = ""
-  let pref = ""
-  const url = 'https://covid19-japan-web-api.now.sh/api/v1/prefectures'
-  const req = https.request(url, (res) => {
-    res.on('data', function (chunk) {
-      data += chunk
-    })
-    res.on('end', () => {
-      pref = JSON.parse(data)
+let data = ""
+let pref = ""
+const url = 'https://covid19-japan-web-api.now.sh/api/v1/prefectures'
+const req = https.request(url, (res) => {
+  res.on('data', function (chunk) {
+    data += chunk
+  })
+  res.on('end', () => {
+    pref = JSON.parse(data)
 
-      for (let i in pref) {
-        let data = pref[i]
-        let prefData = {
-          pref_id: data.id,
-          population: data.population,
-          cases: data.cases,
-          deaths: data.deaths,
-          pcr: data.pcr,
-          hospitalize: data.hospitalize,
-          severe: data.severe,
-          discharge: data.discharge,
-          created_at: data.last_updated.cases_date
-        }
-
-        //データベースへの追加
-        connection.query(`insert into corona set ?`, prefData, (error, results, fields) => {
-          if (error) throw error
-          console.log("DB", [i])
-        })
+    for (let i in pref) {
+      let data = pref[i]
+      let prefData = {
+        pref_id: data.id,
+        population: data.population,
+        cases: data.cases,
+        deaths: data.deaths,
+        pcr: data.pcr,
+        hospitalize: data.hospitalize,
+        severe: data.severe,
+        discharge: data.discharge,
+        created_at: data.last_updated.cases_date
       }
-    })
-  })
 
-  cron.schedule('57 23 * * *', () => {
-    req.on('error', (e) => {
-      console.error(`error:${e.message}`)
-    })
-    req.end()
+      //データベースへの追加
+      connection.query(`insert into corona set ?`, prefData, (error, results, fields) => {
+        if (error) throw error
+        console.log("DB", [i])
+      })
+    }
   })
+})
+
+cron.schedule('57 23 * * *', () => {
+  req.on('error', (e) => {
+    console.error(`error:${e.message}`)
+  })
+  req.end()
+})
 
 
 
@@ -78,8 +78,8 @@ app.get('/', (req, res) => {
 })
 
 
-app.listen(process.env.PORT)
+let server = app.listen(process.env.PORT || 3000, function () {
+  let port = server.address().port;
+  console.log("Express is working on port " + port);
+})
 
-// app.listen(3000, (() => {
-//   console.log('listening on port 3000')
-// }))

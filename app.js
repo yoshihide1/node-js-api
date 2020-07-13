@@ -47,7 +47,6 @@ server = http.createServer((req, res) => {
   })
 
   cron.schedule('57 23 * * *', () => {
-
     req.on('error', (e) => {
       console.error(`error:${e.message}`)
     })
@@ -74,7 +73,7 @@ cron.schedule('57 23 * * *', () => {
 //       // })
 
 //API部分
-app.get('/api/v1/', (req, res) => {
+app.get('/', (req, res) => {
   connection.query('select prefecture, pcr, cases from corona join prefectures where corona.pref_id = prefectures.pref_id', ((error, results, fields) => {
     if (error) throw error
     res.json(results)

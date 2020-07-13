@@ -56,10 +56,6 @@ server = http.createServer((req, res) => {
 
 
 // データベースからの取得
-cron.schedule('57 23 * * *', () => {
-  console.log(11111)
-  console.log(3333)
-})
 // connection.query('select * from test1 where id = 13', ((error, results, fields) => {
 //   if (error) throw error
 //   // res.send(results)
@@ -82,6 +78,8 @@ app.get('/', (req, res) => {
 })
 
 
-app.listen(3000, (() => {
-  console.log('listening on port 3000')
-}))
+app.listen(process.env.PORT)
+
+// app.listen(3000, (() => {
+//   console.log('listening on port 3000')
+// }))

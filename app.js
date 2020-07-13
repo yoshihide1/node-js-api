@@ -5,11 +5,11 @@ const app = express()
 const connection = require('./mysqlConnection')
 const cron = require('node-cron')
 
-server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
-  res.write('Hello World')
-  res.end()
-})
+// server = http.createServer((req, res) => {
+//   res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
+//   res.write('Hello World')
+//   res.end()
+// })
 
 //APIリクエスト定時実行
 

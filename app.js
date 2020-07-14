@@ -5,12 +5,6 @@ const app = express()
 const connection = require('./mysqlConnection')
 const cron = require('node-cron')
 
-// server = http.createServer((req, res) => {
-//   res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' })
-//   res.write('Hello World')
-//   res.end()
-// })
-
 //APIリクエスト定時実行
 
 let data = ""
@@ -53,23 +47,9 @@ cron.schedule('57 23 * * *', () => {
   req.end()
 })
 
-
-
-// データベースからの取得
-// connection.query('select * from test1 where id = 13', ((error, results, fields) => {
-//   if (error) throw error
-//   // res.send(results)
-//   console.log(results)
-//   console.log("results:")
-// }))
-
-//       //削除
-//       // connection.query(`delete from test1 where id = ${i}`, (err,result) => {
-//       //   console.log("完了")
-//       // })
-
 //API部分
 app.get('/', (req, res) => {//最新データ取得
+
   connection.query('select prefecture, cases, population, deaths, pcr, hospitalize, severe, discharge, created_at from corona join prefectures as pref on corona.pref_id = pref.pref_id where created_at = (select max(created_at) from corona)', ((error, results, fields) => {
     if (error) throw error
     res.json(results)
@@ -78,9 +58,5 @@ app.get('/', (req, res) => {//最新データ取得
 
 })
 
-
-let server = app.listen(process.env.PORT || 3000, function () {
-  let port = server.address().port;
-  console.log("Express is working on port " + port);
-})
+app.listen(process.env.PORT || 3000)
 

@@ -10,7 +10,7 @@ const cron = require('node-cron')
 let data = ""
 let pref = ""
 const url = 'https://covid19-japan-web-api.now.sh/api/v1/prefectures'
-const req = https.request(url, (res) => {
+const dbReq = https.request(url, (res) => {
   res.on('data', function (chunk) {
     data += chunk
   })
@@ -41,10 +41,10 @@ const req = https.request(url, (res) => {
 })
 
 cron.schedule('57 23 * * *', () => {
-  req.on('error', (e) => {
+  dbReq.on('error', (e) => {
     console.error(`error:${e.message}`)
   })
-  req.end()
+  dbReq.end()
 })
 
 //API部分
@@ -53,9 +53,7 @@ app.get('/', (req, res) => {//最新データ取得
   connection.query('select prefecture, cases, population, deaths, pcr, hospitalize, severe, discharge, created_at from corona join prefectures as pref on corona.pref_id = pref.pref_id where created_at = (select max(created_at) from corona)', ((error, results, fields) => {
     if (error) throw error
     res.json(results)
-    console.log(res.json(results))
   }))
-
 })
 
 app.listen(process.env.PORT || 3000)

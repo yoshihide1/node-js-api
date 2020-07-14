@@ -46,12 +46,12 @@ const req = https.request(url, (res) => {
   })
 })
 
-cron.schedule('57 23 * * *', () => {
+// cron.schedule('57 23 * * *', () => {
   req.on('error', (e) => {
     console.error(`error:${e.message}`)
   })
   req.end()
-})
+// })
 
 
 

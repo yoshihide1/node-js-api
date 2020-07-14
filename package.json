@@ -9,11 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "moment": "^2.27.0",
-    "mongodb": "^3.5.9",
     "mongoose": "^5.9.22",
     "mysql": "^2.18.1",
     "node-cron": "^2.0.3"
@@ -28,7 +26,7 @@
     "url": "https://github.com/yoshihide1/node-js-sample/issues"
   },
   "engines": {
-    "node": "14.2.0",
+    "node": "v14.2.0",
     "npm": "6.14.5"
   },
   "homepage": "https://github.com/yoshihide1/node-js-sample#readme",

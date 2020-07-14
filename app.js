@@ -52,7 +52,7 @@ app.get('/api/v1/', (req, res) => {//最新データ取得
 
   connection.query('select prefecture, cases, population, deaths, pcr, hospitalize, severe, discharge, created_at from corona join prefectures as pref on corona.pref_id = pref.pref_id where created_at = (select max(created_at) from corona)', ((error, results, fields) => {
     if (error) throw error
-    res.json(results)
+   return res.json(results)
   }))
 })
 

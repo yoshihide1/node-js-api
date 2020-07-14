@@ -13,15 +13,14 @@ let connection
 function handleDisconnect() {
   console.log('create mysql')
   connection = mysql.createConnection(dbConfig)
-  console.log(11111)
 
   connection.connect((err) => {
     if (err) {
       console.log('error:', err)
       setTimeout(handleDisconnect, 2000)
+    } else {
+      console.log("成功")
     }
-    console.log(err)
-    console.log("connection")
   })
 
   connection.on('error', ((err) => {
@@ -34,10 +33,7 @@ function handleDisconnect() {
       throw err
     }
   }))
-  console.log("module1")
   module.exports = connection
-  console.log("module2")
 }
 
 handleDisconnect()
-console.log("最後")

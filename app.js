@@ -4,7 +4,8 @@ const express = require('express')
 const app = express()
 const connection = require('./mysqlConnection')
 const cron = require('node-cron')
-
+const domain = require('express-domain-middleware');
+app.use(domain);
 //APIリクエスト定時実行
 
 let data = ""

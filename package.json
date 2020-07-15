@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start pm2.json",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,7 +13,6 @@
     "express": "^4.17.1",
     "express-domain-middleware": "^0.1.0",
     "moment": "^2.27.0",
-    "mongoose": "^5.9.22",
     "mysql": "^2.18.1",
     "node-cron": "^2.0.3"
   },

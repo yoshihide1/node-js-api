@@ -35,7 +35,7 @@ app.get('/api/v1/total/', (req, res) => {
 
 //二日分
 app.get('/api/v1/2day/', (req, res) => {
-  connection.query(`select * from corona t1 where created_at in (select created_at from (select distinct created_at from corona order by 1 desc limit 2) t2)`, (error, results, fields) => {
+  connection.query(`select corona.pref_id, prefecture, cases, population, deaths, pcr, hospitalize, severe, discharge, created_at from corona join prefectures as pref on corona.pref_id = pref.pref_id where created_at in (select created_at from (select distinct created_at from corona order by 1 desc limit 2) t2)`, (error, results, fields) => {
     if (error) {
       console.log(error)
     } else {

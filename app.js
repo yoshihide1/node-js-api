@@ -24,7 +24,7 @@ app.get('/api/v1/today/', (req, res) => {//最新データ取得
 
 //日付毎の集計
 app.get('/api/v1/total/', (req, res) => {
-  connection.query(`select date_format(created_at, '%Y-%m-%d') as date, sum(cases) as cases, sum(pcr) as pcr, sum(deaths) as deaths, sum(population) as population, sum(discharge) as discharge, sum(hospitalize) as hospitalize, sum(severe) as severe from corona group by date_format(created_at, '%Y%m%d') order by created_at desc limit 14`, (error, results , fields) => {
+  connection.query(`select date_format(created_at, '%Y-%m-%d') as date, sum(cases) as cases, sum(pcr) as pcr, sum(deaths) as deaths, sum(population) as population, sum(discharge) as discharge, sum(hospitalize) as hospitalize, sum(severe) as severe from corona group by date_format(created_at, '%Y%m%d') order by created_at desc limit 14`, (error, results, fields) => {
     if (error) {
       console.log(error)
     } else {
@@ -33,5 +33,16 @@ app.get('/api/v1/total/', (req, res) => {
   })
 })
 
-app.listen(process.env.PORT || 3000)
+//二日分
+app.get('/api/v1/2day/', (req, res) => {
+  connection.query(`select * from corona t1 where created_at in (select created_at from (select distinct created_at from corona order by 1 desc limit 2) t2)`, (error, results, fields) => {
+    if (error) {
+      console.log(error)
+    } else {
+      res.json(results)
+    }
+  })
+})
 
+
+app.listen(process.env.PORT || 3000)

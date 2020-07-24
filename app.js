@@ -44,5 +44,16 @@ app.get('/api/v1/2day/', (req, res) => {
   })
 })
 
+//県別
+app.get('/api/v1/pref/', (req, res) => {
+  connection.query(`select corona.*, pref.prefecture from corona join prefectures as pref on pref.pref_id = corona.pref_id and corona.pref_id = ${req}`, (error, results, fields) => {
+    if (error) {
+      console.log(error)
+    } else {
+      res.json(results)
+    }
+  })
+})
+
 
 app.listen(process.env.PORT || 3000)

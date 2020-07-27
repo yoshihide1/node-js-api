@@ -42,6 +42,7 @@ exports.handler = (event) => {
           }
         })
       }
+      connection.end()
     })
   })
   req.on('error', (e) => {
